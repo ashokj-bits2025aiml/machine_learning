@@ -1,7 +1,7 @@
 # Machine Learning Assignment – 2
 
 **Course:** Machine Learning
-**Programme:** M.Tech (AIML / DSE)
+**Programme:** M.Tech (AIML)
 **Student Name:** Ashok Jayavelu
 **Roll Number:** 2025ab05128
 
