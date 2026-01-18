@@ -1,165 +1,128 @@
-# 📊 Machine Learning Assignment 2– Binary Classification (Streamlit App)
+# Machine Learning Assignment – 2
 
-This project is a **Streamlit-based Machine Learning application** developed as part of **ML Assignment 2**.
-It allows users to upload a dataset, select a binary classification model, train the model, and evaluate its performance using multiple metrics.
-
-## 👨‍🎓 Author
-
-**Ashok Jayavelu**
-Roll Number: **2025ab05128**
-Course: *Machine Learning*
----
-
-## 🚀 Features
-
-* Upload any **CSV dataset** for binary classification
-* Automatic **data cleaning and preprocessing**
-* Train and evaluate the following models:
-
-  * Logistic Regression
-  * Decision Tree
-  * K-Nearest Neighbors (KNN)
-  * Naive Bayes
-  * Random Forest
-  * XGBoost
-* Display comprehensive evaluation metrics:
-
-  * Accuracy
-  * Precision
-  * Recall
-  * F1 Score
-  * AUC Score
-  * Matthews Correlation Coefficient (MCC)
-* Visualize:
-
-  * Confusion Matrix
-  * Classification Report
+**Course:** Machine Learning
+**Programme:** M.Tech (AIML / DSE)
+**Student Name:** Ashok Jayavelu
+**Roll Number:** 2025ab05128
 
 ---
 
-## 🧠 Models Used
+## a. Problem Statement
 
-The application supports multiple supervised learning algorithms implemented using **scikit-learn** and **XGBoost**.
-Each model is modularized and stored inside the `model/` directory.
+The objective of this assignment is to implement multiple **machine learning classification models**, evaluate their performance using standard metrics, and deploy the models using an **interactive Streamlit web application**.
+
+The assignment demonstrates an **end-to-end machine learning workflow**, including:
+
+* Dataset selection
+* Model implementation
+* Model evaluation
+* User interface development
+* Cloud deployment using Streamlit Community Cloud
 
 ---
 
-## 📁 Project Structure
+## b. Dataset Description
+
+* **Dataset Name:** Heart Disease Dataset
+* **Source:** Public dataset (Kaggle / UCI Repository)
+* **Problem Type:** Binary Classification
+* **Target Variable:** Presence of heart disease (0 = No, 1 = Yes)
+* **Number of Features:** ≥ 12
+* **Number of Instances:** ≥ 500
+
+The dataset consists of patient health-related attributes such as age, cholesterol level, blood pressure, and other clinical parameters used to predict the presence of heart disease.
+
+---
+
+## c. Models Used and Evaluation Metrics
+
+The following **six classification models** were implemented using the same dataset:
+
+1. Logistic Regression
+2. Decision Tree Classifier
+3. K-Nearest Neighbors (KNN)
+4. Naive Bayes Classifier
+5. Random Forest (Ensemble Model)
+6. XGBoost (Ensemble Model)
+
+### Evaluation Metrics Used
+
+For each model, the following metrics were calculated:
+
+* Accuracy
+* AUC Score
+* Precision
+* Recall
+* F1 Score
+* Matthews Correlation Coefficient (MCC)
+
+---
+
+### Model Performance Comparison Table
+
+| ML Model                 | Accuracy | AUC    | Precision | Recall | F1 Score | MCC     |
+| ------------------------ | -------- | ------ | --------- | ------ | -------- | ------- |
+| Logistic Regression      | 0.8033   | 0.8712 | 0.8000    | 0.8485 | 0.8235   | 0.6031  |
+| Decision Tree            | 0.8033   | 0.8019 | 0.8182    | 0.8182 | 0.8182   | 0.6039  |
+| KNN                      | 0.7377   | 0.8411 | 0.6857    | 0.8276 | 0.7500   | 0.4886  |
+| Naive Bayes              | 0.8525   | 0.8556 | 0.8333    | 0.8621 | 0.8475   | 0.7051  | 
+| Random Forest (Ensemble) | 0.8361   | 0.8804 | 0.7879    | 0.8966 | 0.8387   | 0.6793  |
+| XGBoost (Ensemble)       | 0.8033   | 0.8567 | 0.7576    | 0.8621 | 0.8065   | 0.6134  |
+
+---
+
+## Model-wise Observations
+
+| ML Model                 | Observation                                                                             |
+| ------------------------ | --------------------------------------------------------------------------------------- |
+| Logistic Regression      | Performs well as a baseline model with stable and interpretable results.                |
+| Decision Tree            | Captures non-linear relationships but may overfit the dataset.                          |
+| KNN                      | Sensitive to the choice of K and distance metric; performance varies with data scaling. |
+| Naive Bayes              | Fast and efficient but assumes feature independence, which may reduce accuracy.         |
+| Random Forest (Ensemble) | Provides improved performance due to ensemble averaging and reduced overfitting.        |
+| XGBoost (Ensemble)       | Achieves the best overall performance due to gradient boosting and regularization.      |
+
+---
+
+## Streamlit Application Features
+
+The deployed Streamlit application includes the following mandatory features:
+
+* CSV dataset upload option
+* Model selection dropdown
+* Display of evaluation metrics
+* Confusion matrix and classification report
+
+---
+
+## Project Structure
 
 ```
 project-folder/
-├── app.py                   # Main Streamlit application
-├── requirements.txt         # Python dependencies
-├── runtime.txt              # Python version for Streamlit Cloud
-├── heart.csv                # Sample dataset (optional)
-├── model/
-│   ├── data_preprocessing.py
-│   ├── logistic.py
-│   ├── decision_tree.py
-│   ├── knn.py
-│   ├── naive_bayes.py
-│   ├── random_forest.py
-│   └── xgboost_model.py
+│-- app.py
+│-- requirements.txt
+│-- runtime.txt
+│-- README.md
+│-- model/
+│   │-- logistic.py
+│   │-- decision_tree.py
+│   │-- knn.py
+│   │-- naive_bayes.py
+│   │-- random_forest.py
+│   │-- xgboost_model.py
+│   │-- data_preprocessing.py
 ```
 
 ---
 
-## ⚙️ Requirements
+## Deployment Details
 
-* **Python 3.10** (mandatory for Streamlit Cloud compatibility)
-* Required libraries are listed in `requirements.txt`
-
-### `requirements.txt`
-
-```
-streamlit==1.50.0
-pandas==2.1.4
-numpy==1.26.4
-scikit-learn==1.3.2
-scipy==1.11.4
-xgboost==2.1.4
-```
+* **Platform:** Streamlit Community Cloud
+* **Python Version:** 3.10
+* **Deployment Type:** Free Tier
+* **GitHub link** 
+* **Live App Link:** https://machinelearning-ukbynakebxswsrqnxbrzmb.streamlit.app/ *
 
 ---
 
-## 🐍 Python Version (Important)
-
-This project **must run on Python 3.10**.
-
-The following file is required for Streamlit Cloud:
-
-### `runtime.txt`
-
-```
-python-3.10
-```
-
----
-
-## ▶️ How to Run Locally
-
-1. Clone the repository:
-
-   ```bash
-   git clone <your-repo-url>
-   cd project-folder
-   ```
-
-2. Create and activate a virtual environment:
-
-   ```bash
-   python3.10 -m venv venv
-   source venv/bin/activate
-   ```
-
-3. Install dependencies:
-
-   ```bash
-   pip install --upgrade pip
-   pip install -r requirements.txt
-   ```
-
-4. Run the Streamlit app:
-
-   ```bash
-   streamlit run app.py
-   ```
-
----
-
-## ☁️ Deploying on Streamlit Cloud
-
-1. Push the project to GitHub
-2. Ensure these files exist in the root:
-
-   * `app.py`
-   * `requirements.txt`
-   * `runtime.txt`
-3. Go to **Streamlit Cloud**
-4. Create a new app and select your repository
-5. Deploy 🚀
-
----
-
-## 📊 Dataset Requirements
-
-* Input file must be in **CSV format**
-* Target variable should be **binary (0/1)**
-* Feature preprocessing is handled automatically
-
----
-
-## 📝 Evaluation Metrics Explained
-
-* **Accuracy** – Overall correctness of the model
-* **Precision** – Correct positive predictions
-* **Recall** – Ability to detect positive cases
-* **F1 Score** – Balance between precision and recall
-* **AUC** – Model’s ability to distinguish classes
-* **MCC** – Robust metric for imbalanced datasets
-
----
-
-
-
-
+**End of README**
