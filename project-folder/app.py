@@ -30,8 +30,8 @@ st.set_page_config(
     layout="wide"
 )
 
-st.title("📊 Machine Learning Assignment 2")
-st.write("Binary Classification using Heart Disease Dataset")
+st.title("📊 Machine Learning Assignment - Ashok Jayavelu 2025ab05128")
+st.write("Binary Classification - Dataset will be uploaded below (heart disease)")
 
 # --------------------------------------------------
 # Dataset Upload
