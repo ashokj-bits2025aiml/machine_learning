@@ -120,7 +120,7 @@ project-folder/
 * **Platform:** Streamlit Community Cloud
 * **Python Version:** 3.10
 * **Deployment Type:** Free Tier
-* **GitHub link** 
+* **GitHub link** https://github.com/ashokj-bits2025aiml/machine_learning/tree/main/project-folder
 * **Live App Link:** https://machinelearning-ukbynakebxswsrqnxbrzmb.streamlit.app/ *
 
 ---
