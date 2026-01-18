@@ -26,7 +26,7 @@ from model.data_preprocessing import clean_and_prepare_data
 # Streamlit Page Configuration
 # --------------------------------------------------
 st.set_page_config(
-    page_title="ML Assignment 2 – Binary Classification",
+    page_title="2025ab05128 - ML Assignment 2 – Binary Classification",
     layout="wide"
 )
 
@@ -36,7 +36,7 @@ st.write("Binary Classification - Dataset will be uploaded below (heart disease)
 # --------------------------------------------------
 # Dataset Upload
 # --------------------------------------------------
-st.header("📁 Upload Dataset (CSV)")
+st.header("📁 Upload Dataset (only in CSV)")
 uploaded_file = st.file_uploader(
     "Upload dataset (CSV format only)",
     type=["csv"]
