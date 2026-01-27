@@ -24,7 +24,7 @@ The assignment demonstrates an **end-to-end machine learning workflow**, includi
 ## b. Dataset Description
 
 * **Dataset Name:** Heart Disease Dataset
-* **Source:** Public dataset (Kaggle / UCI Repository)
+* **Source:** Public dataset from Kaggle
 * **Problem Type:** Binary Classification
 * **Target Variable:** Presence of heart disease (0 = No, 1 = Yes)
 * **Number of Features:** ≥ 12
@@ -66,8 +66,8 @@ For each model, the following metrics were calculated:
 | Decision Tree            | 0.8033   | 0.8019 | 0.8033    | 0.8033 | 0.8033   | 0.6039  |
 | KNN                      | 0.7869   | 0.8377 | 0.7880    | 0.7869 | 0.7855   | 0.5702  |
 | Naive Bayes              | 0.7869   | 0.8842 | 0.7914    | 0.7869 | 0.7872   | 0.5771  | 
-| Random Forest            | 0.7541   | 0.8588 | 0.7537    | 0.7541 | 0.7537   | 0.5038  |
-| XGBoost                  | 0.7213   | 0.8323 | 0.7208    | 0.7213 | 0.7209   | 0.4376  |
+| Random Forest (Ensemble) | 0.7541   | 0.8588 | 0.7537    | 0.7541 | 0.7537   | 0.5038  |
+| XGBoost (Ensemble)       | 0.7213   | 0.8323 | 0.7208    | 0.7213 | 0.7209   | 0.4376  |
 
 ---
 
