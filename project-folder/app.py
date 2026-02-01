@@ -1,21 +1,30 @@
 """
 Author: Ashok Jayavelu
 Bits ID: 2025AB05128
-Description: As per the assignment requirement, used sklearn library and generated the Models by download dataset from Git, manual upload dataset from local 
-and Choose which model needs to be run.
+Description:
+As per the assignment requirement, used sklearn library and generated ML models by:
+1. Downloading dataset from GitHub
+2. Manual upload from local
+3. Selecting and running different classification models
 """
 
 import streamlit as st
 import pandas as pd
-import numpy as np
-import os
 import matplotlib.pyplot as plt
+import requests
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score, precision_score, recall_score
-from sklearn.metrics import f1_score, roc_auc_score, matthews_corrcoef
-from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import (
+    accuracy_score,
+    precision_score,
+    recall_score,
+    f1_score,
+    roc_auc_score,
+    matthews_corrcoef,
+    confusion_matrix,
+    classification_report
+)
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -27,51 +36,35 @@ from xgboost import XGBClassifier
 from model.data_preprocessing import clean_and_prepare_data
 
 
-# Page setup
+# ---------------------------------------------------
+# Page Configuration
+# ---------------------------------------------------
 st.set_page_config(
     page_title="Machine Learning Classification App",
     layout="wide"
 )
 
-# Simple but professional styling
+# ---------------------------------------------------
+# Styling (Professional White & Grey)
+# ---------------------------------------------------
 st.markdown("""
 <style>
-/* Page background */
-body {
-    background-color: #f5f5f5;
-}
-
-/* Headings */
-h1, h2, h3 {
-    color: #222222;
-}
-
-/* Sidebar */
+body { background-color: #f5f5f5; }
+h1, h2, h3 { color: #222222; }
 section[data-testid="stSidebar"] {
     background-color: #eeeeee;
     border-right: 1px solid #dddddd;
 }
-
-/* Sidebar text */
-section[data-testid="stSidebar"] * {
-    color: #333333 !important;
-}
-
-/* Buttons */
 .stButton>button {
     background-color: #666666;
     color: white;
     border-radius: 6px;
     font-weight: 500;
 }
-
-/* Tables */
 [data-testid="stDataFrame"] {
     background-color: white;
     border-radius: 6px;
 }
-
-/* Info message */
 [data-testid="stInfo"] {
     background-color: #f0f0f0;
     border-left: 4px solid #999999;
@@ -79,40 +72,64 @@ section[data-testid="stSidebar"] * {
 </style>
 """, unsafe_allow_html=True)
 
+# ---------------------------------------------------
+# Title
+# ---------------------------------------------------
 st.title("Machine Learning Classification Assignment - 2025AB05128")
 
-# Sidebar controls
+# ---------------------------------------------------
+# Sidebar
+# ---------------------------------------------------
 st.sidebar.header("Machine Learning Controls")
 
-# Download dataset if available
-file_path = "heart.csv"
-if os.path.exists(file_path):
-    with open(file_path, "rb") as f:
-        st.sidebar.download_button(
-            "⬇ Download Dataset from Git",
-            f,
-            file_name="heart.csv"
-        )
+# ---------------------------------------------------
+# GitHub RAW Dataset URL (CORRECT PATH)
+# ---------------------------------------------------
+GITHUB_RAW_CSV = (
+    "https://raw.githubusercontent.com/"
+    "ashokj-bits2025aiml/machine_learning/main/"
+    "project-folder/heart.csv"
+)
 
-st.sidebar.markdown("**Upload file from local which is downloaded**")
+# ---- Download Button ----
+try:
+    response = requests.get(GITHUB_RAW_CSV)
+
+    if response.status_code == 200:
+        st.sidebar.download_button(
+            label="⬇ Download Dataset from Git",
+            data=response.content,
+            file_name="heart.csv",
+            mime="text/csv"
+        )
+    else:
+        st.sidebar.error("Dataset not found on GitHub")
+
+except Exception:
+    st.sidebar.error("Unable to connect to GitHub")
+
+# ---- Upload Dataset ----
+st.sidebar.markdown("**Upload downloaded dataset**")
 uploaded_csv = st.sidebar.file_uploader("", type=["csv"])
 
+# ---- Model Selection ----
 model_selected = st.sidebar.selectbox(
     "Select Machine Learning Model",
-    [
+    (
         "Logistic Regression",
         "Decision Tree",
         "K-Nearest Neighbors",
         "Naive Bayes",
         "Random Forest",
         "XGBoost"
-    ]
+    )
 )
 
 run_model = st.sidebar.button("🚀 Run Model")
 
-
-# Main logic
+# ---------------------------------------------------
+# Main Logic
+# ---------------------------------------------------
 if uploaded_csv is not None:
 
     data = pd.read_csv(uploaded_csv)
@@ -122,11 +139,12 @@ if uploaded_csv is not None:
 
     if run_model:
 
-        # Preprocessing
+        # ---- Preprocessing ----
         X, y = clean_and_prepare_data(data)
 
         X_train, X_test, y_train, y_test = train_test_split(
-            X, y,
+            X,
+            y,
             test_size=0.2,
             random_state=42,
             stratify=y
@@ -136,7 +154,7 @@ if uploaded_csv is not None:
         X_train = scaler.fit_transform(X_train)
         X_test = scaler.transform(X_test)
 
-        # Model selection
+        # ---- Model Selection ----
         if model_selected == "Logistic Regression":
             clf = LogisticRegression(max_iter=1000)
 
@@ -160,38 +178,39 @@ if uploaded_csv is not None:
             )
 
         clf.fit(X_train, y_train)
-
         predictions = clf.predict(X_test)
 
-        if hasattr(clf, "predict_proba"):
-            probabilities = clf.predict_proba(X_test)[:, 1]
-        else:
-            probabilities = None
+        probabilities = (
+            clf.predict_proba(X_test)[:, 1]
+            if hasattr(clf, "predict_proba")
+            else None
+        )
 
-        # Metrics calculation
+        # ---- Metrics ----
         results = {
             "Accuracy": accuracy_score(y_test, predictions),
-            "AUC": roc_auc_score(y_test, probabilities) if probabilities is not None else "N/A",
+            "AUC": roc_auc_score(y_test, probabilities)
+            if probabilities is not None else "N/A",
             "Precision": precision_score(y_test, predictions, average="weighted"),
             "Recall": recall_score(y_test, predictions, average="weighted"),
             "F1 Score": f1_score(y_test, predictions, average="weighted"),
             "MCC": matthews_corrcoef(y_test, predictions)
         }
 
-        metrics_table = pd.DataFrame(
-            list(results.items()),
+        metrics_df = pd.DataFrame(
+            results.items(),
             columns=["Metric", "Value"]
         )
-        metrics_table.index = metrics_table.index + 1
+        metrics_df.index += 1
 
         st.subheader("Evaluation Metrics")
-        st.dataframe(metrics_table, use_container_width=True)
+        st.dataframe(metrics_df, use_container_width=True)
 
-        # Confusion matrix
+        # ---- Confusion Matrix ----
         st.subheader("Confusion Matrix")
-
         cm = confusion_matrix(y_test, predictions)
-        fig, ax = plt.subplots(figsize=(3, 3))
+
+        fig, ax = plt.subplots(figsize=(4, 4))
         ax.imshow(cm, cmap="Blues")
         ax.set_xlabel("Predicted")
         ax.set_ylabel("Actual")
@@ -202,12 +221,15 @@ if uploaded_csv is not None:
 
         st.pyplot(fig)
 
-        # Classification report
+        # ---- Classification Report ----
         st.subheader("Classification Report")
-        report = classification_report(y_test, predictions, output_dict=True)
+        report = classification_report(
+            y_test,
+            predictions,
+            output_dict=True
+        )
         report_df = pd.DataFrame(report).transpose()
         st.dataframe(report_df, use_container_width=True)
 
 else:
-    st.info("⬅ Please download and upload the dataset from the sidebar.")
-
+    st.info("⬅ Please download the dataset from GitHub and upload it to proceed.")
