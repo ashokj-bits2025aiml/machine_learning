@@ -210,3 +210,4 @@ if uploaded_csv is not None:
 
 else:
     st.info("⬅ Please download and upload the dataset from the sidebar.")
+
