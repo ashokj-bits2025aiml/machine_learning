@@ -80,8 +80,9 @@ For each model, the following metrics were calculated:
 | KNN                      | Sensitive to the choice of K and distance metric; performance varies with data scaling. |
 | Naive Bayes              | Fast and efficient but assumes feature independence, which may reduce accuracy.         |
 | Random Forest (Ensemble) | Provides improved performance due to ensemble averaging and reduced overfitting.        |
-| XGBoost (Ensemble)       | Achieves the best overall performance due to gradient boosting and regularization.      |
-
+| XGBoost (Ensemble)       | Shows competitive performance and strong AUC due to gradient boosting and regularization| 
+|                          | but slightly underperforms Random Forest on this dataset, likely due to limited         |
+|                          | hyperparameter tuning.                                                                  |
 ---
 
 ## Streamlit Application Features
